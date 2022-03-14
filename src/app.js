@@ -76,8 +76,8 @@ app.post("/login/forgotpassword", async (req, res) => {
     });
 
     if (password === cpassword) {
-      const pas = await bcrypt.hash(password, 10);
-      const data = await Register.updateOne({ email: useremail }, { $set: { psw: pas } });
+      const hashpassword = await bcrypt.hash(password, 10);
+      const data = await Register.updateOne({ email: useremail }, { $set: { psw: hashpassword } });
       return res.status(200).json({ message: `Updated Successfully ${data}` });
     } else {
       res.send("Password is not matching");
